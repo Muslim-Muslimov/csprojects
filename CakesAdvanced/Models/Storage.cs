@@ -69,5 +69,42 @@ namespace CakesAdvanced.Models
                 AddIngredient(ingredient);
             }
         }
+        public void VerifyIngredientsAvailability(Dictionary<string, int> neededIngredients)
+        {
+            foreach (var ingredient in neededIngredients)
+            {
+                Ingredient? existingIngredient = FindIngredientByName(ingredient.Key);
+                if (existingIngredient == null)
+                {
+                    throw new Exception("Ингредиент не найден.");
+                }
+                else if (existingIngredient.Quantity < ingredient.Value)
+                {
+                    throw new Exception("Недостаточное количество");
+                }
+            }
+
+        }
+        public List<Ingredient> TakeIngredients(Dictionary<string, int> neededIngredients)
+        {
+            VerifyIngredientsAvailability(neededIngredients);
+            List<Ingredient> ingredientsToReturn = new List<Ingredient>();
+            foreach (var i in neededIngredients)
+            {
+                string ingredientKey = i.Key;
+                int ingredientValue = i.Value;
+                Ingredient getIngredient = GetIngredientByName(ingredientKey);
+                getIngredient.Quantity = getIngredient.Quantity - ingredientValue;
+                Ingredient newIngredient = new Ingredient
+                {
+                    Name = getIngredient.Name,
+                    Quantity = getIngredient.Quantity,
+                    Cost = getIngredient.Cost,
+                };
+                ingredientsToReturn.Add(newIngredient);
+            }
+            SaveIngredients();
+            return ingredientsToReturn;
+        }
     }
 }
