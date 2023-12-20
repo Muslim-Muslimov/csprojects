@@ -4,8 +4,8 @@ namespace CakesAdvanced.Models
 {
     internal class Ingredient
     {
-        public string Name { get; set; }
-        public decimal Cost { get; set; }
+        public string Name { get; }
+        public decimal Cost { get; }
         public int Quantity { get;  set; }
 
     }
