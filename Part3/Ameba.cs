@@ -1,6 +1,6 @@
-public static class Ameba
+internal static class Ameba
 {
-    public static void Start()
+    internal static void Start()
     {
         /*
         C4.3. Одноклеточная амеба каждые 3 часа делится на 2 клетки.

@@ -8,9 +8,9 @@ namespace Zoo
 {
     internal class Elephant : Animal
     {
-        public Elephant(string name) : base(name) {}
+        internal Elephant(string name) : base(name) {}
 
-        public override void Move()
+        internal override void Move()
         {
             Console.WriteLine("Elephant moves");
         }

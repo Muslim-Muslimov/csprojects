@@ -8,24 +8,22 @@ namespace Zoo
 {
     internal class Lion : Animal
     {
-        public void Roar()
+        internal void Roar()
         {
             Console.WriteLine("1ааакъ");
         }
-        public override void Move()
+        internal override void Move()
         {
             Console.WriteLine($"Lion {Name} moved");
         }
 
-        public override void MakeSound()
+        internal override void MakeSound()
         {
             Console.WriteLine("LionSound");
         }
 
-        public Lion(string name) : base(name) { }
+        internal Lion(string name) : base(name) { }
 
-        public Lion()
-        {
-        }
+
     }
 }

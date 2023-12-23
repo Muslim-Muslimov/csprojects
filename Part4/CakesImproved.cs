@@ -11,7 +11,7 @@ namespace movsar_part4
     internal class CakesImprovement
     {
             const string PATH = @"CakesPrice.txt";
-        public static void FindCake()
+        internal static void FindCake()
         {
             Console.WriteLine("Введите название торта: ");
             string? selectedName = InputService.GetString();
@@ -36,7 +36,7 @@ namespace movsar_part4
                 Console.WriteLine("Нет такого торта");
             }
         }
-        public static void AddCake()
+        internal static void AddCake()
         {
             Console.WriteLine("Введите данные о торте");
 
@@ -63,7 +63,7 @@ namespace movsar_part4
 
             Console.WriteLine("Данные о торте успешно добавлены в файл");
         }
-        public static void Start()
+        internal static void Start()
         {
 
             // Выбор режима

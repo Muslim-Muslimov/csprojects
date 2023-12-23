@@ -1,6 +1,6 @@
-public static class Methods
+internal static class Methods
 {
-    public static void Recursion(string path)
+    internal static void Recursion(string path)
     {
         string[] directoryNames;
         try
@@ -28,7 +28,7 @@ public static class Methods
         Night
     }
 
-    public static void Start()
+    internal static void Start()
     {
         DayTime dayTime = DayTime.Morning;
 

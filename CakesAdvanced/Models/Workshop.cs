@@ -11,11 +11,11 @@ namespace CakesAdvanced.Models
  
         Dictionary<string, Dictionary<string, int>> _recipes = new Dictionary<string, Dictionary<string, int>>();
 
-        public Dictionary<string, Dictionary<string, int>> GetAllRecipes() 
+        internal Dictionary<string, Dictionary<string, int>> GetAllRecipes() 
         {
             return _recipes; 
         }
-        public Workshop()
+        internal Workshop()
         {
             Dictionary<string, int> Medovik = new Dictionary<string, int>()
            {

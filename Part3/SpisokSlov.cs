@@ -12,9 +12,9 @@
 4) Прибавление единицы к переменной i(i = 0 + 1)
 5) 
 */
-public static class SpisokSlov
+internal static class SpisokSlov
 {
-    public static void Start()
+    internal static void Start()
     {
         int a = 2;
         string b = "m";

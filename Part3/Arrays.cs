@@ -8,9 +8,9 @@
 *
 */
 
-public static class Arrays
+internal static class Arrays
 {
-    public static void Start()
+    internal static void Start()
     {
         string[,] countries = {
             {"Madrid", "Lisabon", "Asdasd", "Rusi"},

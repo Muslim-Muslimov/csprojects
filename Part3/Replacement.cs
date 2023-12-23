@@ -3,9 +3,9 @@
  
  
 */
-public static class Replacement
+internal static class Replacement
 {
-    public static void Start()
+    internal static void Start()
     {
         int a = 2;
         int b = 4;
