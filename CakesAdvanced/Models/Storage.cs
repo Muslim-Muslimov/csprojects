@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -91,17 +92,18 @@ namespace CakesAdvanced.Models
             List<Ingredient> ingredientsToReturn = new List<Ingredient>();
             foreach (var i in neededIngredients)
             {
-                string ingredientKey = i.Key;
-                int ingredientValue = i.Value;
-                Ingredient getIngredient = GetIngredientByName(ingredientKey);
-                getIngredient.Quantity = getIngredient.Quantity - ingredientValue;
+                string ingredientName = i.Key;
+                int ingredientQuanity = i.Value;
+                Ingredient getIngredient = GetIngredientByName(ingredientName);
+                getIngredient.Quantity = getIngredient.Quantity - ingredientQuanity;
                 Ingredient newIngredient = new Ingredient
                 {
                     Name = getIngredient.Name,
-                    Quantity = getIngredient.Quantity,
                     Cost = getIngredient.Cost,
+                    Quantity = ingredientQuanity,
                 };
                 ingredientsToReturn.Add(newIngredient);
+
             }
             SaveIngredients();
             return ingredientsToReturn;

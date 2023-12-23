@@ -24,5 +24,8 @@ namespace Zoo
 
         public Lion(string name) : base(name) { }
 
+        public Lion()
+        {
+        }
     }
 }
