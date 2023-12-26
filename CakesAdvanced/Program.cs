@@ -1,10 +1,13 @@
-﻿namespace CakesAdvanced
+﻿using CakesAdvanced.Models;
+
+namespace CakesAdvanced
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var store = new Store("Урус-Мартановский тортовый завод");
+            store.Open();
         }
     }
 }

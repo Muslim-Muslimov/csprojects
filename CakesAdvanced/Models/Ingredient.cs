@@ -8,5 +8,12 @@ namespace CakesAdvanced.Models
         internal decimal Cost { get; set; }
         internal int Quantity { get;  set; }
 
+        public Ingredient ()
+        {
+
+        }
+
+        
+
     }
 }
