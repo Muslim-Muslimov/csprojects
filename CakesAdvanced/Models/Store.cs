@@ -81,7 +81,7 @@ namespace CakesAdvanced.Models
             Dictionary<string, Dictionary<string, int>> avaibleRecipes = _kitchen.GetAvailableRecipes();
             if (avaibleRecipes == null)
             {
-                throw new Exception("Нет доступных рецепторв");
+               Console.WriteLine("Нет доступных рецепторв");
             }
             Console.WriteLine(string.Join(",", avaibleRecipes));
             return avaibleRecipes;
@@ -92,7 +92,7 @@ namespace CakesAdvanced.Models
             string text = Console.ReadLine();
             if (text == null)
             {
-                throw new Exception("Вы не ввели название");
+                Console.WriteLine("Вы не ввели название");
             }
             try
             {
