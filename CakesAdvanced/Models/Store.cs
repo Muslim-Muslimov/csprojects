@@ -17,6 +17,7 @@ namespace CakesAdvanced.Models
         {
             Name = name;
             _storage = new Storage();
+            _kitchen = new Kitchen(_storage);
         }
 
         public void ShowManagerOptions()
