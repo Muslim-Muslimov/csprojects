@@ -13,7 +13,9 @@ namespace CakesAdvanced.Models
 
         private Kitchen _kitchen;
         private Storage _storage;
-        public Store(string name) 
+
+
+        public Store(string name)
         {
             Name = name;
             _storage = new Storage();
@@ -22,27 +24,46 @@ namespace CakesAdvanced.Models
 
         public void ShowManagerOptions()
         {
-            string[] modeDiscription = { "1.Добавить ингредиенты" };
-            int? mode = InputService.GetOption(modeDiscription);
-            if (mode == 1)
+            Dictionary<char, string> options = new Dictionary<char, string>{
+                { '1', "Добавить ингредиенты" },
+                { '2', "Показать список ингредиентов в наличии" }
+            };
+            char selectedOption = InputService.GetOption("Выберите дествие", options);
+            switch (selectedOption)
             {
-                AddIngredients();
+                case '1':
+                    AddIngredients();
+                    break;
+                case '2':
+                    ShowIngredients();
+                    break;
+                default:
+                    Open();
+                    return;
             }
-            Open();
-            Console.ReadKey();
-            Console.Clear();
         }
 
         public void AddIngredients()
         {
             Console.WriteLine("Введите ингредиенты в формате 'Название:Цена:Количество'");
             string text = Console.ReadLine();
+            if (String.IsNullOrEmpty(text))
+            {
+                Console.WriteLine("Вы ничего не ввели");
+                Console.ReadKey();
+                Open();
+            }
             string[] ingredientSeparately = text.Split(',');
-            try 
+            try
             {
                 foreach (string s in ingredientSeparately)
                 {
                     string[] ingredientDetails = s.Split(':');
+                    if (ingredientDetails.Length != 3)
+                    {
+                        Console.WriteLine($"Введите в соответствии с примером {ingredientDetails} ");
+                        continue;
+                    }
 
                     Ingredient ingredients = new Ingredient()
                     {
@@ -60,29 +81,34 @@ namespace CakesAdvanced.Models
         }
         public void ShowClientOptions()
         {
-            string[] options = { "1. Показать список возможных тортов", "2.Заказать торт" };
-            int? mode = InputService.GetOption(options);
-            Console.Clear();
-            switch (mode)
+            Dictionary<char, string> options = new Dictionary<char, string>{
+                { '1', "Показать список возможных тортов" },
+                { '2', "Заказать торт" }
+            };
+            char selectedOption = InputService.GetOption("Выберите дествие", options);
+            switch (selectedOption)
             {
-                case 1:
+                case '1':
                     ShowAvailableCakeOptions();
                     break;
-
-                case 2:
+                case '2':
                     TakeOrder();
                     break;
+                default:
+                    Open();
+                    return;
             }
-            Open();
-            Console.ReadKey();
-            Console.Clear();
+
         }
         public Dictionary<string, Dictionary<string, int>> ShowAvailableCakeOptions()
         {
             Dictionary<string, Dictionary<string, int>> avaibleRecipes = _kitchen.GetAvailableRecipes();
-            if (avaibleRecipes == null)
+            if (avaibleRecipes.Keys.Count == 0)
             {
-               Console.WriteLine("Нет доступных рецепторв");
+                Console.WriteLine("Нет доступных рецептов");
+                Console.ReadKey();
+                Console.Clear();
+                Open();
             }
             Console.WriteLine(string.Join(",", avaibleRecipes));
             return avaibleRecipes;
@@ -91,35 +117,60 @@ namespace CakesAdvanced.Models
         {
             Console.WriteLine("Введите название торта: ");
             string text = Console.ReadLine();
-            if (text == null)
+            if (String.IsNullOrEmpty(text))
             {
                 Console.WriteLine("Вы не ввели название");
             }
+            var newCake = _kitchen.MakeCake(text);
+            Console.WriteLine($"{newCake.Name} {newCake.Price}");
+            return newCake;
+        }
+
+            public void Open()
+        {
             try
             {
-             var newCake =  _kitchen.MakeCake(text);
-                Console.WriteLine($"{newCake.Name} {newCake.Price}");
-                return newCake;
+                Console.WriteLine("Добро пожаловать!");
+                Dictionary<char, string> options = new Dictionary<char, string>{
+                { '1', "Менеджер" },
+                { '2', "Клиент" }
+            };
+                char selectedOption = InputService.GetOption("Выберите дествие", options);
+                switch (selectedOption)
+                {
+                    case '1':
+                        ShowManagerOptions();
+                        break;
+
+                    case '2':
+                        ShowClientOptions();
+                        break;
+                    default:
+                        Console.Clear();
+                        Open();
+                        return;
+                }
             }
-            catch (Exception) 
-            { 
-                throw new Exception("Не удалось забахать торт");
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Console.ReadKey();
+                Console.Clear() ;
+                Open();
             }
         }
-        public void Open()
+        public void ShowIngredients()
         {
-            string[] options = { "1 - Менеджер", "2 - Клиент" };
-            int? mode = InputService.GetOption(options);
-            switch (mode)
+            var ingredients = _storage.GetAllIngredients();
+            Console.WriteLine("Ингридиенты на складе");
+            Console.WriteLine("Название | Цена | Количество");
+            foreach (var ingredient in ingredients)
             {
-                case 1:
-                    ShowManagerOptions();
-                    break;
-
-                case 2: 
-                    ShowClientOptions(); 
-                    break;
+                Console.WriteLine($"{ingredient.Name} | {ingredient.Cost} | {ingredient.Quantity}");
             }
+            Console.ReadKey();
+            Console.Clear();
+            Open();
         }
     }
 }

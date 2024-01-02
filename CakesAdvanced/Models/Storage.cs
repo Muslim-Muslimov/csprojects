@@ -26,15 +26,15 @@ namespace CakesAdvanced.Models
                 _allingredients = JsonConvert.DeserializeObject<List<Ingredient>>(serializedIngredients);
                 return;
             }
-            
-                Console.WriteLine("Такого файла не существует!");
-            
+
+            Console.WriteLine("Такого файла не существует!");
+
         }
-        internal Storage ()
+        internal Storage()
         {
             LoadIngredients();
         }
-        internal Ingredient?  FindIngredientByName(string Name)
+        internal Ingredient? FindIngredientByName(string Name)
         {
             return _allingredients.Find(x => x.Name?.ToLower() == Name?.ToLower());
         }
@@ -106,6 +106,10 @@ namespace CakesAdvanced.Models
             }
             SaveIngredients();
             return ingredientsToReturn;
+        }
+        public List<Ingredient> GetAllIngredients()
+        {
+            return _allingredients;
         }
     }
 }
