@@ -1,6 +1,6 @@
-public static class WhileDoWhile
+internal static class WhileDoWhile
 {
-    public static void Start()
+    internal static void Start()
     {
         Task3();
     }

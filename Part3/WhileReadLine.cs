@@ -1,6 +1,6 @@
-public static class WhileReadLine
+internal static class WhileReadLine
 {
-    public static void Start()
+    internal static void Start()
     {
         string? readResult;
         bool validEntry = false;

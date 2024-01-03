@@ -1,6 +1,6 @@
-public class LogAnalyzer2
+internal class LogAnalyzer2
 {
-    public static void Start()
+    internal static void Start()
     {
         string[] logs = {
                          "2023-11-11   08:30:00   INFO Application started successfully",

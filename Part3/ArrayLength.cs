@@ -4,9 +4,9 @@
     и выводит ее на экран.
 */
 
-public class ArrayLength
+internal class ArrayLength
 {
-    public static void Start()
+    internal static void Start()
     {
         int[,] massiv = {
             {1, 3, 5},

@@ -1,6 +1,6 @@
-public class Cakes
+internal class Cakes
 {
-    public static void Start()
+    internal static void Start()
     {
         string[] cakes = { "Тортик", "Тортище", "Торт95", "Наполеон" };
         int[] cakePrices = { 1507, 3600, 200, 1230 };

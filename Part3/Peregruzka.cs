@@ -1,6 +1,6 @@
-public class Peregruzka
+internal class Peregruzka
 {
-    public static void Start()
+    internal static void Start()
     {
         Console.WriteLine(Sum(1, 8, 9));
     }

@@ -21,9 +21,9 @@
     8. Если результат сравнения (chisloA меньше ли chisloB) ИСТИНА,
       тогда скажи что число chisloA меньше chisloB
 */
-public static class SravnenieDvuhChisel
+internal static class SravnenieDvuhChisel
 {
-    public static void Start()
+    internal static void Start()
     {
         int chisloA = Convert.ToInt32(Console.ReadLine());
         int chisloB = Convert.ToInt32(Console.ReadLine());

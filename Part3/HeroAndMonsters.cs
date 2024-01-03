@@ -1,6 +1,6 @@
-public static class HeroAndMonsters
+internal static class HeroAndMonsters
 {
-    public static void Start()
+    internal static void Start()
     {
         /*
             Правила игры

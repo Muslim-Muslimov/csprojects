@@ -11,7 +11,7 @@ namespace CakesAdvanced.Models
     internal class Storage
     {
         const string INGREDIENTS_PATH = "ingredients.json";
-        private List<Ingredient> _allingredients = new List<Ingredient>();
+        public List<Ingredient> _allingredients = new List<Ingredient>();
 
         public void SaveIngredients()
         {
@@ -26,20 +26,19 @@ namespace CakesAdvanced.Models
                 _allingredients = JsonConvert.DeserializeObject<List<Ingredient>>(serializedIngredients);
                 return;
             }
-            else
-            {
-                throw new Exception("Такого файла не существует!");
-            }
+
+            Console.WriteLine("Такого файла не существует!");
+
         }
-        public Storage ()
+        internal Storage()
         {
             LoadIngredients();
         }
-        public Ingredient?  FindIngredientByName(string Name)
+        internal Ingredient? FindIngredientByName(string Name)
         {
-            return _allingredients.Find(x => x.Name.ToLower() == Name.ToLower());
+            return _allingredients.Find(x => x.Name?.ToLower() == Name?.ToLower());
         }
-        public Ingredient GetIngredientByName(string Name)
+        internal Ingredient GetIngredientByName(string Name)
         {
             try
             {
@@ -50,7 +49,7 @@ namespace CakesAdvanced.Models
                 throw new Exception("Ингредиент не найден");
             }
         }
-        public void AddIngredient(Ingredient ingredient)
+        internal void AddIngredient(Ingredient ingredient)
         {
             var existingIngredient = FindIngredientByName(ingredient.Name);
             if (existingIngredient != null)
@@ -63,14 +62,14 @@ namespace CakesAdvanced.Models
             }
             SaveIngredients();
         }
-        public void AddIngredients(List<Ingredient> ingredients)
+        internal void AddIngredients(List<Ingredient> ingredients)
         {
             foreach (var ingredient in ingredients)
             {
                 AddIngredient(ingredient);
             }
         }
-        public void VerifyIngredientsAvailability(Dictionary<string, int> neededIngredients)
+        internal void VerifyIngredientsAvailability(Dictionary<string, int> neededIngredients)
         {
             foreach (var ingredient in neededIngredients)
             {
@@ -86,7 +85,7 @@ namespace CakesAdvanced.Models
             }
 
         }
-        public List<Ingredient> TakeIngredients(Dictionary<string, int> neededIngredients)
+        internal List<Ingredient> TakeIngredients(Dictionary<string, int> neededIngredients)
         {
             VerifyIngredientsAvailability(neededIngredients);
             List<Ingredient> ingredientsToReturn = new List<Ingredient>();
@@ -107,6 +106,10 @@ namespace CakesAdvanced.Models
             }
             SaveIngredients();
             return ingredientsToReturn;
+        }
+        public List<Ingredient> GetAllIngredients()
+        {
+            return _allingredients;
         }
     }
 }

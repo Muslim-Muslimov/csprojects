@@ -9,8 +9,7 @@
             var lionShram = new Lion("Shram");
             var elephantSveta = new Elephant("Sveta");
 
-            var lion3 = new Lion();
-            lion3.Move();
+
         }
 
         private static void MoveAnimal(Animal animal)
