@@ -6,11 +6,12 @@ namespace ConsoleUtils
     {
         public static char GetOption(string message, Dictionary<char, string> options)
         {
+            Console.Clear();
             Console.WriteLine("Выберите режим: ");
 
             foreach (var option in options)
             {
-                Console.WriteLine(option);
+                Console.WriteLine($" {option.Key} {option.Value}");
             }
 
             try
