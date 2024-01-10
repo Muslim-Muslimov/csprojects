@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CakesAdvanced.Models
+namespace CakesLibrary.Models
 {
-    internal class Cake
+    public class Cake
     {
-        internal string Name {  get; }
-        internal decimal Price { get; }
+        public string Name {  get; }
+        public decimal Price { get; }
 
         private List<Ingredient> _ingredients  = new List<Ingredient>();
 
-        internal Cake(string name, List<Ingredient> ingredients)
+        public Cake(string name, List<Ingredient> ingredients)
         {
             Name = name;
             _ingredients = ingredients;

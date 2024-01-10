@@ -1,15 +1,13 @@
-﻿using ConsoleUtils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CakesLibrary.Models;
+using ConsoleUtils;
+
 
 namespace CakesAdvanced.Models
 {
     internal class Store
     {
         internal string Name { get; }
+
 
         private Kitchen _kitchen;
         private Storage _storage;

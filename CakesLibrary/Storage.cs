@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace CakesAdvanced.Models
+namespace CakesLibrary.Models
 {
-    internal class Storage
+    public class Storage
     {
         const string INGREDIENTS_PATH = "ingredients.json";
         public List<Ingredient> _allingredients = new List<Ingredient>();
@@ -30,15 +30,15 @@ namespace CakesAdvanced.Models
             Console.WriteLine("Такого файла не существует!");
 
         }
-        internal Storage()
+        public Storage()
         {
             LoadIngredients();
         }
-        internal Ingredient? FindIngredientByName(string Name)
+        public Ingredient? FindIngredientByName(string Name)
         {
             return _allingredients.Find(x => x.Name?.ToLower() == Name?.ToLower());
         }
-        internal Ingredient GetIngredientByName(string Name)
+        public Ingredient GetIngredientByName(string Name)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace CakesAdvanced.Models
                 throw new Exception("Ингредиент не найден");
             }
         }
-        internal void AddIngredient(Ingredient ingredient)
+        public void AddIngredient(Ingredient ingredient)
         {
             var existingIngredient = FindIngredientByName(ingredient.Name);
             if (existingIngredient != null)
@@ -62,14 +62,14 @@ namespace CakesAdvanced.Models
             }
             SaveIngredients();
         }
-        internal void AddIngredients(List<Ingredient> ingredients)
+        public void AddIngredients(List<Ingredient> ingredients)
         {
             foreach (var ingredient in ingredients)
             {
                 AddIngredient(ingredient);
             }
         }
-        internal void VerifyIngredientsAvailability(Dictionary<string, int> neededIngredients)
+        public void VerifyIngredientsAvailability(Dictionary<string, int> neededIngredients)
         {
             foreach (var ingredient in neededIngredients)
             {
@@ -85,7 +85,7 @@ namespace CakesAdvanced.Models
             }
 
         }
-        internal List<Ingredient> TakeIngredients(Dictionary<string, int> neededIngredients)
+        public List<Ingredient> TakeIngredients(Dictionary<string, int> neededIngredients)
         {
             VerifyIngredientsAvailability(neededIngredients);
             List<Ingredient> ingredientsToReturn = new List<Ingredient>();

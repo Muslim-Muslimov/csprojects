@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CakesAdvanced.Models
+namespace CakesLibrary.Models
 {
-    internal class Workshop
+    public class Workshop
     {
  
         Dictionary<string, Dictionary<string, int>> _recipes = new Dictionary<string, Dictionary<string, int>>();
 
-        internal Dictionary<string, Dictionary<string, int>> GetAllRecipes() 
+        public Dictionary<string, Dictionary<string, int>> GetAllRecipes() 
         {
             return _recipes; 
         }
-        internal Workshop()
+        public Workshop()
         {
             Dictionary<string, int> Medovik = new Dictionary<string, int>()
            {
