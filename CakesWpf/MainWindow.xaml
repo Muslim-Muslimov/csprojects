@@ -1,0 +1,30 @@
+﻿<Window x:Name="Кондитерская1" x:Class="CakesWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CakesWpf"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:MainWindow, IsDesignTimeCreatable=True}"
+        Title="Кондитерская" Height="450" Width="800">
+    <Grid x:Name="Кондитерская">
+        <TabControl>
+            <TabItem x:Name="tabClient" Header="Клиент">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem x:Name="tabManager" Header="Менеджер">
+                <Grid Background="#FFE5E5E5">
+                    <ListView ItemsSource="{Binding Ingredients}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
