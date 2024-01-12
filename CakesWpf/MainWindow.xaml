@@ -10,11 +10,29 @@
     <Grid x:Name="Кондитерская">
         <TabControl>
             <TabItem x:Name="tabClient" Header="Клиент">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListView d:ItemsSource="{Binding Recipes}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Список доступных тортов" DisplayMemberBinding="{Binding Key}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button x:Name="btnTakeOrder" Content="Заказать торт" HorizontalAlignment="Left" Margin="578,357,0,0" VerticalAlignment="Top" Width="175" Click="btnTakeOrder_Click"/>
+                    <TextBox x:Name="txtCakeName" HorizontalAlignment="Left" Margin="349,357,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="186" Height="24"/>
+                </Grid>
             </TabItem>
             <TabItem x:Name="tabManager" Header="Менеджер">
                 <Grid Background="#FFE5E5E5">
-                    <ListView ItemsSource="{Binding Ingredients}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListView ItemsSource="{Binding Ingredients}" x:Name ="lstIngredients" Grid.Row="0">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
@@ -22,6 +40,18 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5">
+                        <Label Content="Название:"/>
+                        <TextBox x:Name="txtName" Width="100" Padding="3"/>
+
+                        <Label Content="Стоимость:"/>
+                        <TextBox x:Name="txtCost" Width="30" Padding="3"/>
+
+                        <Label Content="Количество:"/>
+                        <TextBox x:Name="txtQuantity" Width="30" Padding="3"/>
+
+                        <Button Content="Добавить" Padding="10 0 10 0" Margin="10 0 0 0" Click="Button_Click"/>
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>
