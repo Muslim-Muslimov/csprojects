@@ -15,7 +15,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ListView d:ItemsSource="{Binding Recipes}">
+                    <ListView ItemsSource="{Binding Recipes}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Список доступных тортов" DisplayMemberBinding="{Binding Key}"/>

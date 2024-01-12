@@ -22,6 +22,7 @@ namespace CakesWpf
 
         public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
         public Dictionary<string, Dictionary<string, int>> Recipes { get; set; } = new Dictionary<string, Dictionary<string, int>>();
+        public List<Ingredient> AvaibleRecipes { get; set; } = new List<Ingredient>();
         private Storage _storage;
         private Kitchen _kitchen;
         private Ingredient _ingredient;
@@ -36,7 +37,8 @@ namespace CakesWpf
             var availableIngredients = _storage.GetAllIngredients();
             Ingredients.AddRange(availableIngredients);
             Storage storage = new Storage(); Kitchen kitchen = new Kitchen(storage);
-            var availableRecipes = _kitchen.GetAvailableRecipes();
+            Recipes = _kitchen.GetAvailableRecipes();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
