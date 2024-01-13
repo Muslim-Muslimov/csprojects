@@ -1,6 +1,7 @@
 ﻿using CakesLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,56 +21,112 @@ namespace CakesWpf
     public partial class MainWindow : Window
     {
 
-        public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
-        public Dictionary<string, Dictionary<string, int>> Recipes { get; set; } = new Dictionary<string, Dictionary<string, int>>();
-        public List<Ingredient> AvaibleRecipes { get; set; } = new List<Ingredient>();
-        private Storage _storage;
+        public ObservableCollection<Ingredient> Ingredients { get; set; } = new ObservableCollection<Ingredient>();
+        public ObservableCollection<string> Recipes { get; set; } = new ObservableCollection<string>();
+        private Storage _storage = new Storage();
         private Kitchen _kitchen;
-        private Ingredient _ingredient;
+        private string _selectedCakeName;
+        private List<Ingredient> _selectedIngredients;
+
 
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
-            Ingredient ingredient;
             _storage = new Storage();
             _kitchen = new Kitchen(_storage);
-            var availableIngredients = _storage.GetAllIngredients();
-            Ingredients.AddRange(availableIngredients);
-            Storage storage = new Storage(); Kitchen kitchen = new Kitchen(storage);
-            Recipes = _kitchen.GetAvailableRecipes();
-            
+            UpdateIngredientsView();
+            UpdateRecipesView();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ingredient = new Ingredient();
-            _ingredient.Name = txtName.Text;
-            _ingredient.Cost = Convert.ToDecimal(txtCost.Text);
-            _ingredient.Quantity = Convert.ToInt32(txtQuantity.Text);
-            _storage.AddIngredient(_ingredient);
-            _storage.GetAllIngredients();
-            Ingredients = _storage.GetAllIngredients();
-            lstIngredients.ItemsSource = Ingredients;
+            var ingredient = new Ingredient();
+            ingredient.Name = txtName.Text;
+            ingredient.Cost = Convert.ToDecimal(txtCost.Text);
+            ingredient.Quantity = Convert.ToInt32(txtQuantity.Text);
+            _storage.AddIngredient(ingredient);
+            UpdateIngredientsView();
         }
 
         private void btnTakeOrder_Click(object sender, RoutedEventArgs e)
         {
-            string cakeName = txtName.Text;
-             var avaibleRecipes = _kitchen.GetAvailableRecipes();
-            if (cakeName != avaibleRecipes.Keys.First())
-            {
-                MessageBox.Show("Такой мы не можем сделать, пожалуйста выберите из списка");
-            }
-            else if (string.IsNullOrEmpty(cakeName))
+
+
+            if (string.IsNullOrEmpty(_selectedCakeName))
             {
                 MessageBox.Show("Вы не ввели название");
             }
+            else if (!Recipes.Contains(_selectedCakeName))
+            {
+                MessageBox.Show("Такой мы не можем сделать, пожалуйста выберите из списка");
+            }
             else
             {
-                MessageBox.Show("Заказ принят");
-                _kitchen.MakeCake(cakeName);
-                _kitchen.GetAvailableRecipes();
+                MessageBox.Show($"Заказ принят {_selectedCakeName}");
+                try
+                {
+                    _kitchen.MakeCake(_selectedCakeName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                UpdateRecipesView();
+                _selectedCakeName = "";
+            }
+        }
+        private void tabClient_GotFocus(object sender, RoutedEventArgs e)
+        {
+            //UpdateRecipesView();
+        }
+        private void UpdateRecipesView()
+        {
+            Recipes.Clear();
+            var avaibleRecipes = _kitchen.GetAvailableRecipes().Keys;
+
+            foreach (var recipe in avaibleRecipes)
+            {
+                Recipes.Add(recipe);
+            }
+        }
+        private void UpdateIngredientsView()
+        {
+            Ingredients.Clear();
+            var availableIngredients = _storage.GetAllIngredients();
+            foreach (var ingredient in availableIngredients)
+            {
+                Ingredients.Add(ingredient);
+            }
+        }
+
+        private void tabManager_GotFocus(object sender, RoutedEventArgs e)
+        {
+            //  UpdateIngredientsView();
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+            {
+                return;
+            }
+            _selectedCakeName = e.AddedItems[0]!.ToString()!;
+
+
+        }
+
+        private void lstIngredients_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+            {
+                return;
+            }
+            _selectedIngredients = new List<Ingredient>();
+            foreach (var item in e.AddedItems)
+            {
+                var ingredient = item as Ingredient;
+                _selectedIngredients.Add(ingredient);
             }
         }
     }

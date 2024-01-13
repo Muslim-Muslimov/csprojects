@@ -9,30 +9,29 @@
         Title="Кондитерская" Height="450" Width="800">
     <Grid x:Name="Кондитерская">
         <TabControl>
-            <TabItem x:Name="tabClient" Header="Клиент">
+            <TabItem x:Name="tabClient" Header="Клиент" GotFocus="tabClient_GotFocus">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ListView ItemsSource="{Binding Recipes}">
+                    <ListView x:Name="lstRecipes" ItemsSource="{Binding Recipes}" SelectionMode="Single" SelectionChanged="ListView_SelectionChanged">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Список доступных тортов" DisplayMemberBinding="{Binding Key}"/>
+                                <GridViewColumn Header="Список доступных тортов" DisplayMemberBinding="{Binding}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
                     <Button x:Name="btnTakeOrder" Content="Заказать торт" HorizontalAlignment="Left" Margin="578,357,0,0" VerticalAlignment="Top" Width="175" Click="btnTakeOrder_Click"/>
-                    <TextBox x:Name="txtCakeName" HorizontalAlignment="Left" Margin="349,357,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="186" Height="24"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tabManager" Header="Менеджер">
+            <TabItem x:Name="tabManager" Header="Менеджер" GotFocus="tabManager_GotFocus">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ListView ItemsSource="{Binding Ingredients}" x:Name ="lstIngredients" Grid.Row="0">
+                    <ListView SelectionMode="Multiple" SelectionChanged="lstIngredients_SelectionChanged" ItemsSource="{Binding Ingredients}" x:Name ="lstIngredients" Grid.Row="0">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
