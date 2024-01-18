@@ -5,20 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CakesAdvanced.Models
+namespace CakesLibrary.Models
 {
-    internal class Kitchen
+    public class Kitchen
     {
         private Storage _storage;
         private Workshop _workshop;
 
-        internal Kitchen(Storage storage)
+        public Kitchen(Storage storage)
         {
             _storage = storage;
             _workshop = new Workshop();
         }
 
-        internal Dictionary<string, Dictionary<string, int>> GetAvailableRecipes()
+        public Dictionary<string, Dictionary<string, int>> GetAvailableRecipes()
         {
             Dictionary<string, Dictionary<string, int>> allRecipes = _workshop.GetAllRecipes();
             Dictionary<string, Dictionary<string, int>> availableRecipes = new Dictionary<string, Dictionary<string, int>>();
@@ -37,7 +37,7 @@ namespace CakesAdvanced.Models
             }
             return availableRecipes;
         }
-        internal Cake MakeCake(string cakeName)
+        public Cake MakeCake(string cakeName)
         {
             Dictionary<string, Dictionary<string, int>> availableRecipes = GetAvailableRecipes();
             var recipe = availableRecipes.FirstOrDefault(r => r.Key.ToLower() == cakeName.ToLower());
@@ -51,3 +51,4 @@ namespace CakesAdvanced.Models
         }
     }
 }
+

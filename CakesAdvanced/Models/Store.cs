@@ -1,15 +1,13 @@
-﻿using ConsoleUtils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CakesLibrary.Models;
+using ConsoleUtils;
+
 
 namespace CakesAdvanced.Models
 {
     internal class Store
     {
         internal string Name { get; }
+
 
         private Kitchen _kitchen;
         private Storage _storage;
@@ -33,9 +31,15 @@ namespace CakesAdvanced.Models
             {
                 case '1':
                     AddIngredients();
+                    Console.ReadKey();
+                    Console.Clear();
+                    Open();
                     break;
                 case '2':
                     ShowIngredients();
+                    Console.ReadKey();
+                    Console.Clear();
+                    Open();
                     break;
                 default:
                     Open();
@@ -90,9 +94,15 @@ namespace CakesAdvanced.Models
             {
                 case '1':
                     ShowAvailableCakeOptions();
+                    Console.ReadKey();
+                    Console.Clear();
+                    Open();
                     break;
                 case '2':
                     TakeOrder();
+                    Console.ReadKey();
+                    Console.Clear();
+                    Open();
                     break;
                 default:
                     Open();
@@ -110,8 +120,9 @@ namespace CakesAdvanced.Models
                 Console.Clear();
                 Open();
             }
-            Console.WriteLine(string.Join(",", avaibleRecipes));
+            Console.WriteLine(string.Join(",", avaibleRecipes.Keys));
             return avaibleRecipes;
+
         }
         public Cake TakeOrder()
         {
@@ -166,7 +177,11 @@ namespace CakesAdvanced.Models
             Console.WriteLine("Название | Цена | Количество");
             foreach (var ingredient in ingredients)
             {
-                Console.WriteLine($"{ingredient.Name} | {ingredient.Cost} | {ingredient.Quantity}");
+                Console.Write(ingredient.Name.PadRight(9));
+                Console.Write("| ");
+                Console.Write(ingredient.Cost.ToString().PadRight(5));
+                Console.Write("|  ");
+                Console.WriteLine(ingredient.Quantity);
             }
             Console.ReadKey();
             Console.Clear();

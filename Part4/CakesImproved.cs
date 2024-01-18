@@ -63,27 +63,27 @@ namespace movsar_part4
 
             Console.WriteLine("Данные о торте успешно добавлены в файл");
         }
-        internal static void Start()
-        {
+//internal static void Start()
+       // {
 
             // Выбор режима
-            string[] modes = { "1 - Выбор торта", "2 - Внести в прайс новый торт" };
-            int? mode = InputService.GetOption(modes);
+           // string[] modes = { "1 - Выбор торта", "2 - Внести в прайс новый торт" };
+           // int? mode = InputService.GetOption(modes);
 
-            switch (mode)
-            {
-                case 1:
-                    FindCake();
-                    Console.ReadKey();
-                    Start();
-                    break;
+            //switch (mode)
+            //{
+               // case 1:
+                  //  FindCake();
+                  //  Console.ReadKey();
+                  //  Start();
+                  //  break;
 
-                case 2:
-                    AddCake();
-                    Console.ReadKey();
-                    Start();
-                    break;
-            }
+               // case 2:
+                 //   AddCake();
+                  //  Console.ReadKey();
+                  //  Start();
+                  //  break;
+         //   }
         }
-    }
+   // }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CakesAdvanced.Models
+namespace CakesLibrary.Models
 {
     public class Ingredient
     {
