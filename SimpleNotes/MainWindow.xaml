@@ -23,7 +23,7 @@
 
         <TextBox x:Name="txtVvod" Height="200" Grid.Row="0" Grid.Column="0" Margin="20"/>
 
-        <ListBox x:Name="lstVyvod" ItemsSource="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Height="200" Grid.Row="0" Grid.Column="1" Margin="20">
+        <ListBox x:Name="lstVyvod" SelectionMode="Extended" ItemsSource="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Height="200" Grid.Row="0" Grid.Column="1" Margin="20">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid  Margin="2">
