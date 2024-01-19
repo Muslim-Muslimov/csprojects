@@ -27,12 +27,16 @@ namespace SimpleNotes
     {
         const string PATH = "notes.json";
 
-        public ObservableCollection<Note> _notes = new ObservableCollection<Note>();
+        public ObservableCollection<Note> Notes { get; set; } = new ObservableCollection<Note>();
 
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
+            Note newNote = new Note()
+            {
+                Text = "12312"
+            };
             GetAllNotes();
         }
 
@@ -43,19 +47,19 @@ namespace SimpleNotes
             {
                 Text = input,
             };
-            _notes.Add(newNote);
+            Notes.Add(newNote);
             SaveNotes();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             int input = lstVyvod.SelectedIndex;
-            _notes.RemoveAt(input);
+            Notes.RemoveAt(input);
             SaveNotes();
         }
         public void SaveNotes()
         {
-            var serializedNotes = JsonConvert.SerializeObject(_notes);
+            var serializedNotes = JsonConvert.SerializeObject(Notes);
             File.WriteAllText(PATH, serializedNotes);
         }
         public void LoadNotes()
@@ -63,7 +67,7 @@ namespace SimpleNotes
             if (File.Exists(PATH))
             {
                 var serializedNotes = File.ReadAllText(PATH);
-                _notes = JsonConvert.DeserializeObject<ObservableCollection<Note>>(serializedNotes);
+                Notes = JsonConvert.DeserializeObject<ObservableCollection<Note>>(serializedNotes);
                 return;
             }
             Console.WriteLine("Нет заметок");
@@ -72,7 +76,7 @@ namespace SimpleNotes
         public ObservableCollection<Note> GetAllNotes()
         {
             LoadNotes();
-            return _notes;
+            return Notes;
         }
     }
 }
