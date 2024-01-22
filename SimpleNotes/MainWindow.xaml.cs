@@ -34,12 +34,16 @@ namespace SimpleNotes
             DataContext = this;
             InitializeComponent();
 
-            GetAllNotes();
+            LoadNotes();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             string input = txtVvod.Text;
+            if (input == null || input.Length == 0)
+            {
+                MessageBox.Show("Введите текст.");
+            }
             Note newNote = new Note()
             {
                 Text = input,
@@ -50,10 +54,19 @@ namespace SimpleNotes
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            int input = lstVyvod.SelectedIndex;
-            Notes.RemoveAt(input);
-            //lstVyvod.Items.Refresh();
-            SaveNotes();
+            var input = lstVyvod.SelectedItems.Cast<Note>().ToList();
+            try
+            {
+                foreach (var note in input) 
+                { 
+                Notes.Remove(note);
+                }
+                SaveNotes();
+            }
+            catch(Exception ex) 
+            { 
+            MessageBox.Show("Выберите элемент для удаления");
+            }
         }
         public void SaveNotes()
         {
@@ -84,11 +97,24 @@ namespace SimpleNotes
             }
         }
 
-        public ObservableCollection<Note> GetAllNotes()
+        private void btnChange_Click(object sender, RoutedEventArgs e)
         {
-            LoadNotes();
-
-            return Notes;
+            int selectedIndex = lstVyvod.SelectedIndex;
+            string changeText = txtVvod.Text;
+            Note changeNote = new Note()
+            {
+                Text = changeText,
+            };
+            try
+            {
+                Notes.RemoveAt(selectedIndex);
+                Notes.Add(changeNote);
+                SaveNotes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Выберите элемент для редактирования.");
+            }
         }
     }
 }

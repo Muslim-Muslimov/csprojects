@@ -21,9 +21,9 @@
             <ColumnDefinition Width="380"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="txtVvod" Height="200" Grid.Row="0" Grid.Column="0" Margin="20"/>
+        <TextBox x:Name="txtVvod" Height="100" Grid.Row="0" Grid.Column="0" Margin="20,40,20,20"/>
 
-        <ListBox x:Name="lstVyvod" SelectionMode="Extended" ItemsSource="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Height="200" Grid.Row="0" Grid.Column="1" Margin="20">
+        <ListBox x:Name="lstVyvod" SelectionMode="Extended" ItemsSource="{Binding Notes}" Height="100" Grid.Row="0" Grid.Column="1" Margin="20,40,20,20">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid  Margin="2">
@@ -36,9 +36,11 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button x:Name="btnAdd" Content="Добавить" Height="35" Width="200" Grid.Row="2" Grid.Column="1" Margin="20" Click="btnAdd_Click"/>
+        <Button x:Name="btnAdd" Content="Добавить" Height="35" Width="200" Grid.Row="2" Grid.Column="0" Margin="20" Click="btnAdd_Click"/>
         
-        <Button x:Name="btnDelete" Content="Удалить" Height="35" Width="200" Grid.Row="3" Grid.Column="1" Margin="20"/>
+        <Button x:Name="btnChange" Content="Редактировать" Height="35" Width="200" Grid.Row="2" Grid.Column="1" Margin="20" Click="btnChange_Click"/>
+
+        <Button x:Name="btnDelete" Content="Удалить" Height="35" Width="200" Grid.Row="3" Grid.Column="1" Margin="20" Click="btnDelete_Click"/>
 
     </Grid>
 </Window>
