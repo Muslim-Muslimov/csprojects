@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace SimpleNotes
@@ -52,9 +54,14 @@ namespace SimpleNotes
         {
             return _notes;
         }
-        public void EditNote(Note note)
+        public void EditNote(Note existingNote, string newText)
         {
-            // to do
+            var result =_notes.FirstOrDefault(note => note.Text == existingNote.Text);
+            if (result == null)
+            {
+                throw new Exception("Нет такого элемента");
+            }
+            result.Text =  newText;
             SaveNotes();
         }
 

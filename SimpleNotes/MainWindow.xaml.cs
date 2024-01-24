@@ -10,15 +10,15 @@ namespace SimpleNotes
 
     public partial class MainWindow : Window
     {
-        
+        private readonly NotesStore _notesStore = new NotesStore();
+
 
         public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
-
-            //LoadNotes();
+            _notesStore.LoadNotes();
         }
 
         private void btnNewNote_Click(object sender, RoutedEventArgs e)
@@ -27,7 +27,7 @@ namespace SimpleNotes
             windowAddNote.ShowDialog();
             Note newNote = AddNoteWindow.Note;
             Notes.Add(newNote);
-            //SaveNotes();
+            _notesStore.AddNote(newNote);
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -38,8 +38,8 @@ namespace SimpleNotes
                 foreach (var note in input)
                 {
                     Notes.Remove(note);
+                    _notesStore.RemoveNote(note);
                 }
-                //SaveNotes();
             }
             catch (Exception ex)
             {
@@ -52,32 +52,15 @@ namespace SimpleNotes
         private void btnChange_Click(object sender, RoutedEventArgs e)
         {
             int selectedIndex = lstVyvod.SelectedIndex;
+            if (selectedIndex < 0)
+            {
+                MessageBox.Show("Выберите элемент для редактирования");
+            }
+            Note existingNote = Notes[selectedIndex];
             string changeText = txtVvod.Text;
-            Note changeNote = new Note()
-            {
-                Text = changeText,
-            };
-            try
-            {
-               // to do
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Выберите элемент для редактирования.");
-            }
-        }
-        public void AddNote()
-        {
-            string input = txtVvod.Text;
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                MessageBox.Show("Введите текст.");
-            }
-            Note newNote = new Note()
-            {
-                Text = input,
-            };
-            // to do
+            _notesStore.EditNote(existingNote, changeText);
+            existingNote.Text = changeText;
+
         }
     }
 }

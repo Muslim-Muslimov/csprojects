@@ -4,7 +4,7 @@ namespace SimpleNotes
 {
     public partial class AddNoteWindow : Window
     {
-        public static Note Note { get; } = new Note();
+        public static Note Note { get; set; }
         public AddNoteWindow()
         {
             InitializeComponent();
@@ -16,7 +16,7 @@ namespace SimpleNotes
             {
                 MessageBox.Show("Введите текст.");
             }
-
+            Note = new Note();
             Note.Text = input;
             Close();
         }
