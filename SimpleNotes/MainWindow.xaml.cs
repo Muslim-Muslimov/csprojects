@@ -25,7 +25,7 @@ namespace SimpleNotes
     {
         const string PATH = "notes.json";
 
-        //public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
+        public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
         public MainWindow()
         {
             DataContext = this;
@@ -36,9 +36,11 @@ namespace SimpleNotes
 
         private void btnNewNote_Click(object sender, RoutedEventArgs e)
         {
-            Window1 windowAddNote = new Window1();
-            windowAddNote.Owner = this;
-            windowAddNote.Show();
+            AddNoteWindow windowAddNote = new AddNoteWindow();
+            windowAddNote.ShowDialog();
+            Note newNote = AddNoteWindow.Note;
+            Notes.Add(newNote);
+            SaveNotes();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -48,7 +50,7 @@ namespace SimpleNotes
             {
                 foreach (var note in input)
                 {
-                    Note.Notes.Remove(note);
+                    Notes.Remove(note);
                 }
                 SaveNotes();
             }
@@ -59,14 +61,13 @@ namespace SimpleNotes
         }
         public void SaveNotes()
         {
-            var serializedNotes = JsonConvert.SerializeObject(Note.Notes);
+            var serializedNotes = JsonConvert.SerializeObject(Notes);
             File.WriteAllText(PATH, serializedNotes);
         }
         public void LoadNotes()
         {
             if (!File.Exists(PATH))
             {
-                MessageBox.Show("Нет заметок");
                 return;
             }
 
@@ -79,10 +80,10 @@ namespace SimpleNotes
                 return;
             }
 
-            Note.Notes.Clear();
+            Notes.Clear();
             foreach (var note in notesFromFile)
             {
-                Note.Notes.Add(note);
+                Notes.Add(note);
             }
         }
 
@@ -96,8 +97,8 @@ namespace SimpleNotes
             };
             try
             {
-                Note.Notes.RemoveAt(selectedIndex);
-                Note.Notes.Add(changeNote);
+                Notes.RemoveAt(selectedIndex);
+                Notes.Add(changeNote);
                 SaveNotes();
             }
             catch (Exception ex)
@@ -116,7 +117,7 @@ namespace SimpleNotes
             {
                 Text = input,
             };
-            Note.Notes.Add(newNote);
+            Notes.Add(newNote);
             SaveNotes();
         }
     }
