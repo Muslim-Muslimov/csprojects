@@ -1,29 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using Newtonsoft.Json;
-using System.Windows.Shapes;
-using System.Security.Cryptography.X509Certificates;
+
 
 namespace SimpleNotes
 {
 
     public partial class MainWindow : Window
     {
-        const string PATH = "notes.json";
+        
 
         public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
         public MainWindow()
@@ -31,7 +18,7 @@ namespace SimpleNotes
             DataContext = this;
             InitializeComponent();
 
-            LoadNotes();
+            //LoadNotes();
         }
 
         private void btnNewNote_Click(object sender, RoutedEventArgs e)
@@ -40,7 +27,7 @@ namespace SimpleNotes
             windowAddNote.ShowDialog();
             Note newNote = AddNoteWindow.Note;
             Notes.Add(newNote);
-            SaveNotes();
+            //SaveNotes();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -52,40 +39,15 @@ namespace SimpleNotes
                 {
                     Notes.Remove(note);
                 }
-                SaveNotes();
+                //SaveNotes();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Выберите элемент для удаления");
             }
         }
-        public void SaveNotes()
-        {
-            var serializedNotes = JsonConvert.SerializeObject(Notes);
-            File.WriteAllText(PATH, serializedNotes);
-        }
-        public void LoadNotes()
-        {
-            if (!File.Exists(PATH))
-            {
-                return;
-            }
 
-            var serializedNotes = File.ReadAllText(PATH);
 
-            var notesFromFile = JsonConvert.DeserializeObject<ObservableCollection<Note>>(serializedNotes);
-            if (notesFromFile == null)
-            {
-                MessageBox.Show("Notes are null");
-                return;
-            }
-
-            Notes.Clear();
-            foreach (var note in notesFromFile)
-            {
-                Notes.Add(note);
-            }
-        }
 
         private void btnChange_Click(object sender, RoutedEventArgs e)
         {
@@ -97,9 +59,7 @@ namespace SimpleNotes
             };
             try
             {
-                Notes.RemoveAt(selectedIndex);
-                Notes.Add(changeNote);
-                SaveNotes();
+               // to do
             }
             catch (Exception ex)
             {
@@ -117,8 +77,7 @@ namespace SimpleNotes
             {
                 Text = input,
             };
-            Notes.Add(newNote);
-            SaveNotes();
+            // to do
         }
     }
 }
