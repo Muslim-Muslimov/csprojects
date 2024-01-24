@@ -16,19 +16,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Newtonsoft.Json;
 using System.Windows.Shapes;
-
+using System.Security.Cryptography.X509Certificates;
 
 namespace SimpleNotes
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         const string PATH = "notes.json";
 
-        public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
-
+        //public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
         public MainWindow()
         {
             DataContext = this;
@@ -37,19 +34,11 @@ namespace SimpleNotes
             LoadNotes();
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void btnNewNote_Click(object sender, RoutedEventArgs e)
         {
-            string input = txtVvod.Text;
-            if (input == null || input.Length == 0)
-            {
-                MessageBox.Show("Введите текст.");
-            }
-            Note newNote = new Note()
-            {
-                Text = input,
-            };
-            Notes.Add(newNote);
-            SaveNotes();
+            Window1 windowAddNote = new Window1();
+            windowAddNote.Owner = this;
+            windowAddNote.Show();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -57,20 +46,20 @@ namespace SimpleNotes
             var input = lstVyvod.SelectedItems.Cast<Note>().ToList();
             try
             {
-                foreach (var note in input) 
-                { 
-                Notes.Remove(note);
+                foreach (var note in input)
+                {
+                    Note.Notes.Remove(note);
                 }
                 SaveNotes();
             }
-            catch(Exception ex) 
-            { 
-            MessageBox.Show("Выберите элемент для удаления");
+            catch (Exception ex)
+            {
+                MessageBox.Show("Выберите элемент для удаления");
             }
         }
         public void SaveNotes()
         {
-            var serializedNotes = JsonConvert.SerializeObject(Notes);
+            var serializedNotes = JsonConvert.SerializeObject(Note.Notes);
             File.WriteAllText(PATH, serializedNotes);
         }
         public void LoadNotes()
@@ -90,10 +79,10 @@ namespace SimpleNotes
                 return;
             }
 
-            Notes.Clear();
+            Note.Notes.Clear();
             foreach (var note in notesFromFile)
             {
-                Notes.Add(note);
+                Note.Notes.Add(note);
             }
         }
 
@@ -107,14 +96,28 @@ namespace SimpleNotes
             };
             try
             {
-                Notes.RemoveAt(selectedIndex);
-                Notes.Add(changeNote);
+                Note.Notes.RemoveAt(selectedIndex);
+                Note.Notes.Add(changeNote);
                 SaveNotes();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Выберите элемент для редактирования.");
             }
+        }
+        public void AddNote()
+        {
+            string input = txtVvod.Text;
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                MessageBox.Show("Введите текст.");
+            }
+            Note newNote = new Note()
+            {
+                Text = input,
+            };
+            Note.Notes.Add(newNote);
+            SaveNotes();
         }
     }
 }
