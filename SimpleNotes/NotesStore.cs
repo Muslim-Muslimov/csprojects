@@ -8,10 +8,14 @@ using System.Windows;
 
 namespace SimpleNotes
 {
-    internal class NotesStore
+    public class NotesStore
     {
-        private List<Note> _notes  = new List<Note>();
+        private List<Note> _notes = new List<Note>();
         const string PATH = "notes.json";
+        public NotesStore()
+        {
+            LoadNotes();
+        }
         public void LoadNotes()
         {
             if (!File.Exists(PATH))
@@ -41,7 +45,7 @@ namespace SimpleNotes
         }
         public void AddNote(Note note)
         {
-            
+
             _notes.Add(note);
             SaveNotes();
         }
@@ -56,12 +60,13 @@ namespace SimpleNotes
         }
         public void EditNote(Note existingNote, string newText)
         {
-            var result =_notes.FirstOrDefault(note => note.Text == existingNote.Text);
-            if (result == null)
+            var note = _notes.FirstOrDefault(n => n.Text == existingNote.Text);
+            if (note == null)
             {
                 throw new Exception("Нет такого элемента");
             }
-            result.Text =  newText;
+            note.Text = newText;
+
             SaveNotes();
         }
 

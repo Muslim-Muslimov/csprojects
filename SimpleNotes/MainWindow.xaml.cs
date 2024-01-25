@@ -11,23 +11,31 @@ namespace SimpleNotes
     public partial class MainWindow : Window
     {
         private readonly NotesStore _notesStore = new NotesStore();
-
-
         public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
+
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
-            _notesStore.LoadNotes();
+
+            RefreshListViewNotes();
         }
 
         private void btnNewNote_Click(object sender, RoutedEventArgs e)
         {
-            AddNoteWindow windowAddNote = new AddNoteWindow();
+            AddNoteWindow windowAddNote = new AddNoteWindow(_notesStore);
             windowAddNote.ShowDialog();
-            Note newNote = AddNoteWindow.Note;
-            Notes.Add(newNote);
-            _notesStore.AddNote(newNote);
+
+            RefreshListViewNotes();
+        }
+
+        private void RefreshListViewNotes()
+        {
+            Notes.Clear();
+            foreach (var note in _notesStore.GetNotes())
+            {
+                Notes.Add(note);
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -37,17 +45,15 @@ namespace SimpleNotes
             {
                 foreach (var note in input)
                 {
-                    Notes.Remove(note);
                     _notesStore.RemoveNote(note);
                 }
+                RefreshListViewNotes();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Выберите элемент для удаления");
             }
         }
-
-
 
         private void btnChange_Click(object sender, RoutedEventArgs e)
         {
@@ -56,11 +62,12 @@ namespace SimpleNotes
             {
                 MessageBox.Show("Выберите элемент для редактирования");
             }
-            Note existingNote = Notes[selectedIndex];
-            string changeText = txtVvod.Text;
-            _notesStore.EditNote(existingNote, changeText);
-            existingNote.Text = changeText;
 
+            Note existingNote = Notes[selectedIndex];
+            string newText = txtVvod.Text;
+            _notesStore.EditNote(existingNote, newText);
+            
+            RefreshListViewNotes();
         }
     }
 }

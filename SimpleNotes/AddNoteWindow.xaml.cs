@@ -4,10 +4,11 @@ namespace SimpleNotes
 {
     public partial class AddNoteWindow : Window
     {
-        public static Note Note { get; set; }
-        public AddNoteWindow()
+        private readonly NotesStore _notesStore;
+        public AddNoteWindow(NotesStore notesStore)
         {
             InitializeComponent();
+            _notesStore = notesStore;
         }
         private void btnNewAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -16,8 +17,12 @@ namespace SimpleNotes
             {
                 MessageBox.Show("Введите текст.");
             }
-            Note = new Note();
-            Note.Text = input;
+            
+            var newNote = new Note();
+            newNote.Text = input;
+
+            _notesStore.AddNote(newNote);
+
             Close();
         }
     }
