@@ -10,7 +10,8 @@ namespace SimpleNotes
 
     public partial class MainWindow : Window
     {
-        private readonly NotesStore _notesStore = new NotesStore();
+        private readonly NotesStore _notesStore = new NotesStore(); //поле только для чтения, что бы код каждый раз не создовал новый объект
+        ///private readonly Note _noteToEdit = new Note();
         public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
 
         public MainWindow()
@@ -21,15 +22,15 @@ namespace SimpleNotes
             RefreshListViewNotes();
         }
 
-        private void btnNewNote_Click(object sender, RoutedEventArgs e)
+        private void btnNewNote_Click(object sender, RoutedEventArgs e) // создание новой записи
         {
-            AddNoteWindow windowAddNote = new AddNoteWindow(_notesStore);
+            AddNoteWindow windowAddNote = new AddNoteWindow(_notesStore); // переход в новое окно
             windowAddNote.ShowDialog();
 
             RefreshListViewNotes();
         }
 
-        private void RefreshListViewNotes()
+        private void RefreshListViewNotes() // обновление списка
         {
             Notes.Clear();
             foreach (var note in _notesStore.GetNotes())
@@ -38,7 +39,7 @@ namespace SimpleNotes
             }
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void btnDelete_Click(object sender, RoutedEventArgs e) // удаление заметок
         {
             var input = lstVyvod.SelectedItems.Cast<Note>().ToList();
             try
@@ -55,17 +56,19 @@ namespace SimpleNotes
             }
         }
 
-        private void btnChange_Click(object sender, RoutedEventArgs e)
+        private void btnChange_Click(object sender, RoutedEventArgs e) // редактирование
         {
-            int selectedIndex = lstVyvod.SelectedIndex;
-            if (selectedIndex < 0)
+            var notetoEdit = (Note)lstVyvod.SelectedItem;
+            if (notetoEdit == null)
             {
                 MessageBox.Show("Выберите элемент для редактирования");
             }
-
-            Note existingNote = Notes[selectedIndex];
-            string newText = txtVvod.Text;
-            _notesStore.EditNote(existingNote, newText);
+            EditNote editNote = new EditNote(_notesStore, notetoEdit);
+            editNote.ShowDialog();
+            
+           // Note existingNote = Notes[selectedIndex];
+           // string newText = txtVvod.Text;
+           // _notesStore.EditNote(existingNote, newText);
             
             RefreshListViewNotes();
         }

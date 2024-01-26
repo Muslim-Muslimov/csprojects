@@ -1,0 +1,18 @@
+﻿<Window x:Class="SimpleNotes.EditNote"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleNotes"
+        mc:Ignorable="d"
+        Title="EditNote" Height="250" Width="350">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="txtEdit" Height="120" Grid.Row="0" HorizontalAlignment="Center" Width="300" VerticalAlignment="Top"/>
+        <Button x:Name="btnEdit" Content="Редактировать" Height="35" Width="150" Grid.Row="2" Grid.Column="0" Margin="166,10,20,20" Click="btnEdit_Click"/>
+    </Grid>
+</Window>

@@ -16,7 +16,7 @@ namespace SimpleNotes
         {
             LoadNotes();
         }
-        public void LoadNotes()
+        public void LoadNotes() // загрузка записей
         {
             if (!File.Exists(PATH))
             {
@@ -38,27 +38,27 @@ namespace SimpleNotes
                 _notes.Add(note);
             }
         }
-        public void SaveNotes()
+        public void SaveNotes() // сохранение записей
         {
             var serializedNotes = JsonConvert.SerializeObject(_notes);
             File.WriteAllText(PATH, serializedNotes);
         }
-        public void AddNote(Note note)
+        public void AddNote(Note note) // добавление
         {
 
             _notes.Add(note);
             SaveNotes();
         }
-        public void RemoveNote(Note note)
+        public void RemoveNote(Note note) // удаление
         {
             _notes.Remove(note);
             SaveNotes();
         }
-        public List<Note> GetNotes()
+        public List<Note> GetNotes() // возвращаем лист записей
         {
             return _notes;
         }
-        public void EditNote(Note existingNote, string newText)
+        public void EditNote(Note existingNote, string newText) // редактируем запись
         {
             var note = _notes.FirstOrDefault(n => n.Text == existingNote.Text);
             if (note == null)

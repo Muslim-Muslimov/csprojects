@@ -10,7 +10,7 @@ namespace SimpleNotes
             InitializeComponent();
             _notesStore = notesStore;
         }
-        private void btnNewAdd_Click(object sender, RoutedEventArgs e)
+        private void btnNewAdd_Click(object sender, RoutedEventArgs e) // создаем новую запись
         {
             string input = txtAdd.Text;
             if (string.IsNullOrWhiteSpace(input))

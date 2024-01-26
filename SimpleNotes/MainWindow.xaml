@@ -6,24 +6,25 @@
         xmlns:local="clr-namespace:SimpleNotes"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:MainWindow, IsDesignTimeCreatable=True}"
-        Title="SimpleNotes" Height="450" Width="800">
+        Title="SimpleNotes" Height="450" Width="639">
     <Grid Margin="5">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="380"/>
-            <ColumnDefinition Width="380"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="txtVvod" Height="100" Grid.Row="0" Grid.Column="0" Margin="20,40,20,20"/>
-
-        <ListBox x:Name="lstVyvod" SelectionMode="Extended" ItemsSource="{Binding Notes}" Height="100" Grid.Row="0" Grid.Column="1" Margin="20,40,20,20">
+        <ListBox x:Name="lstVyvod" SelectionMode="Extended" 
+                 ItemsSource="{Binding Notes}" 
+                 Grid.ColumnSpan="2" Grid.Row="0" 
+                 Margin="10,40,20,20">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid  Margin="2">
@@ -36,11 +37,11 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button x:Name="btnNewNote" Content="Создать новую заметку" Height="35" Width="200" Grid.Row="2" Grid.Column="0" Margin="20" Click="btnNewNote_Click"/>
-        
-        <Button x:Name="btnChange" Content="Редактировать" Height="35" Width="200" Grid.Row="2" Grid.Column="1" Margin="20" Click="btnChange_Click"/>
+        <Button x:Name="btnNewNote" Content="Создать новую заметку" Height="35" Width="200" Grid.Row="2" Grid.Column="0" Margin="20" Click="btnNewNote_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
-        <Button x:Name="btnDelete" Content="Удалить" Height="35" Width="200" Grid.Row="3" Grid.Column="1" Margin="20" Click="btnDelete_Click"/>
+        <Button x:Name="btnChange" Content="Редактировать" Height="35" Width="200" Grid.Row="2" Grid.Column="1" Margin="20" Click="btnChange_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+
+        <Button x:Name="btnDelete" Content="Удалить" Height="35" Width="200" Grid.Row="3" Grid.Column="1" Margin="20" Click="btnDelete_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>
