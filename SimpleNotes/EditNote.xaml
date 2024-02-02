@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleNotes"
         mc:Ignorable="d"
-        Title="EditNote" Height="250" Width="350">
+        Title="EditNote" Height="201" Width="350">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="txtEdit" Height="120" Grid.Row="0" HorizontalAlignment="Center" Width="300" VerticalAlignment="Top"/>
-        <Button x:Name="btnEdit" Content="Редактировать" Height="35" Width="150" Grid.Row="2" Grid.Column="0" Margin="166,10,20,20" Click="btnEdit_Click"/>
+        <RichTextBox x:Name="docBox" Height="120" Grid.Row="0" HorizontalAlignment="Center" Width="300" VerticalAlignment="Top"/>
+        <Button x:Name="btnEdit" Content="Редактировать" Height="35" Width="150" Grid.Row="1" Grid.Column="0" Margin="168,10,0,0" Click="btnEdit_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center"/>
     </Grid>
 </Window>

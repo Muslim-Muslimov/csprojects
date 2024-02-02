@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleNotes"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=local:MainWindow, IsDesignTimeCreatable=True}"
+        
         Title="SimpleNotes" Height="450" Width="639">
     <Grid Margin="5">
 
@@ -37,7 +37,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button x:Name="btnNewNote" Content="Создать новую заметку" Height="35" Width="200" Grid.Row="2" Grid.Column="0" Margin="20" Click="btnNewNote_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <Button x:Name="btnNewNote" Content="Создать новую заметку" Height="35" Width="200" Grid.Row="2" Grid.Column="0" Margin="0,0,20,0" Click="btnNewNote_Click" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right"/>
 
         <Button x:Name="btnChange" Content="Редактировать" Height="35" Width="200" Grid.Row="2" Grid.Column="1" Margin="20" Click="btnChange_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 

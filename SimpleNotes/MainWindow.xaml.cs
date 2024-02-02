@@ -62,13 +62,10 @@ namespace SimpleNotes
             if (notetoEdit == null)
             {
                 MessageBox.Show("Выберите элемент для редактирования");
+                return;
             }
             EditNote editNote = new EditNote(_notesStore, notetoEdit);
             editNote.ShowDialog();
-            
-           // Note existingNote = Notes[selectedIndex];
-           // string newText = txtVvod.Text;
-           // _notesStore.EditNote(existingNote, newText);
             
             RefreshListViewNotes();
         }
