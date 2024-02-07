@@ -12,14 +12,18 @@ namespace SimpleNotes
         }
         private void btnNewAdd_Click(object sender, RoutedEventArgs e) // создаем новую запись
         {
-            string input = txtAdd.Text;
-            if (string.IsNullOrWhiteSpace(input))
+            string title = txtTitle.Text;
+            string content = RtfService.GetRtfContentAsText(rtbNote);
+            if (string.IsNullOrWhiteSpace(title))
             {
                 MessageBox.Show("Введите текст.");
             }
-            
-            var newNote = new Note();
-            newNote.Text = input;
+
+            var newNote = new Note()
+            {
+                Title = title,
+                Content = content,
+            };
 
             _notesStore.AddNote(newNote);
 

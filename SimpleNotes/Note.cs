@@ -1,7 +1,11 @@
-﻿namespace SimpleNotes
+﻿using System;
+
+namespace SimpleNotes
 {
     public class Note
     {
-        public string Text { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public string Title { get; set; } = string.Empty;
+        public string Content { get; set; } = string.Empty;
     }
 }

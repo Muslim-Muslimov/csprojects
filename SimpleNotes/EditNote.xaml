@@ -5,14 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleNotes"
         mc:Ignorable="d"
-        Title="EditNote" Height="201" Width="350">
-    <Grid Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        Title="EditNote" MinHeight="345" Height="345" Width="500">
 
-        <RichTextBox x:Name="docBox" Height="120" Grid.Row="0" HorizontalAlignment="Center" Width="300" VerticalAlignment="Top"/>
-        <Button x:Name="btnEdit" Content="Редактировать" Height="35" Width="150" Grid.Row="1" Grid.Column="0" Margin="168,10,0,0" Click="btnEdit_Click" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-    </Grid>
+    <StackPanel Margin="5">
+
+        <TextBox x:Name="txtTitle" Margin="5" Padding="5" FontSize="16"/>
+
+        <DockPanel LastChildFill = "True" Margin="5">
+            <RichTextBox x:Name="rtbNote" Height="200" />
+        </DockPanel>
+
+        <Button x:Name="btnSave"
+                Content="Редактировать" 
+                Height="35" Width="150" Margin="5" Click="btnSave_Click" 
+                HorizontalAlignment="Right" />
+    </StackPanel>
+
 </Window>
