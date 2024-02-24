@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+
 
 namespace SimpleNotes
 {
@@ -7,7 +9,7 @@ namespace SimpleNotes
         private readonly NotesStore _notesStore;
         private string _noteId;
         public EditNote(NotesStore notesStore, Note note)
-        {
+        { 
             InitializeComponent();
 
             _notesStore = notesStore;
@@ -23,6 +25,7 @@ namespace SimpleNotes
             var content = RtfService.GetRtfContentAsText(rtbNote);
 
             _notesStore.EditNote(_noteId, title, content);
+            Close();
         }
     }
 }
