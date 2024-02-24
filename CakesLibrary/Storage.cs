@@ -1,38 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SQLitePCL;
-
-namespace CakesLibrary.Models
+﻿namespace CakesLibrary.Models
 {
     public class Storage
     {
-        const string INGREDIENTS_PATH = "ingredients.json";
-        public List<Ingredient> _allingredients = new List<Ingredient>();
-
-        public void SaveIngredients()
-        {
-            
-        }
+        private MyDbContext _context;
 
         public Storage()
         {
-            var context = new MyDbContext();
-
+            _context = new MyDbContext();
+            _context.Database.EnsureCreated();
         }
         public Ingredient? FindIngredientByName(string Name)
         {
-            return _allingredients.Find(x => x.Name?.ToLower() == Name?.ToLower());
+            var dbIngredient = _context.Ingredients.FirstOrDefault(x => x.Name == Name);
+            return dbIngredient;
         }
         public Ingredient GetIngredientByName(string Name)
         {
             try
             {
-                return _allingredients.First(x => x.Name.ToLower() == Name.ToLower());
+                return _context.Ingredients.First(x => x.Name.ToLower() == Name.ToLower());
             }
             catch
             {
@@ -48,9 +34,10 @@ namespace CakesLibrary.Models
             }
             else
             {
-                _allingredients.Add(ingredient);
+                _context.Ingredients.Add(ingredient);
             }
-            SaveIngredients();
+
+            _context.SaveChanges();
         }
         public void AddIngredients(List<Ingredient> ingredients)
         {
@@ -94,12 +81,13 @@ namespace CakesLibrary.Models
                 ingredientsToReturn.Add(newIngredient);
 
             }
-            SaveIngredients();
+
+            _context.SaveChanges();
             return ingredientsToReturn;
         }
         public List<Ingredient> GetAllIngredients()
         {
-            return _allingredients;
+            return _context.Ingredients.ToList();
         }
     }
 }

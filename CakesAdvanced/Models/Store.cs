@@ -80,7 +80,7 @@ namespace CakesAdvanced.Models
             }
             catch (Exception)
             {
-                _storage.LoadIngredients();
+
             }
         }
         public void ShowClientOptions()
