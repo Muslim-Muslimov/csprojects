@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SQLitePCL;
 
 namespace CakesLibrary.Models
 {
@@ -15,24 +16,13 @@ namespace CakesLibrary.Models
 
         public void SaveIngredients()
         {
-            var serializedIngredients = JsonConvert.SerializeObject(_allingredients);
-            File.WriteAllText(INGREDIENTS_PATH, serializedIngredients);
+            
         }
-        public void LoadIngredients()
-        {
-            if (File.Exists(INGREDIENTS_PATH))
-            {
-                var serializedIngredients = File.ReadAllText(INGREDIENTS_PATH);
-                _allingredients = JsonConvert.DeserializeObject<List<Ingredient>>(serializedIngredients);
-                return;
-            }
 
-            Console.WriteLine("Такого файла не существует!");
-
-        }
         public Storage()
         {
-            LoadIngredients();
+            var context = new MyDbContext();
+
         }
         public Ingredient? FindIngredientByName(string Name)
         {
@@ -109,7 +99,6 @@ namespace CakesLibrary.Models
         }
         public List<Ingredient> GetAllIngredients()
         {
-            LoadIngredients();
             return _allingredients;
         }
     }
